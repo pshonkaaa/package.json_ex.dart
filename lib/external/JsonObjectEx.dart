@@ -55,6 +55,8 @@ abstract class JsonObjectEx extends MapBase<String, dynamic> implements IJsonEx 
   void put(String key, dynamic value);
   
 
+  dynamic getDynamic(String key);
+
   bool? getBoolean(String key);
 
   int? getInteger(String key);

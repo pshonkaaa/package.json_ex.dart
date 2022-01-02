@@ -27,6 +27,14 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
     => _isInRange(index) ? (rawJson[index] == null ? true : false) : true;
 
   @override
+  dynamic getDynamic(int index) {
+    if(!_isInRange(index))
+      return null;
+    final value = rawJson[index];
+    return value;
+  }
+
+  @override
   bool? getBoolean(int index) {
     if(!_isInRange(index))
       return null;

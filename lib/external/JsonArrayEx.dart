@@ -59,6 +59,8 @@ abstract class JsonArrayEx<T> extends ListBase<T> implements IJsonEx {
   // bool pushValue(dynamic value);
 
 
+  dynamic getDynamic(int index);
+
   bool? getBoolean(int index);
 
   int? getInteger(int index);

@@ -46,6 +46,15 @@ class _WrappedJsonObject extends JsonObjectEx {
   void put(String key, dynamic value) => this[key] = value;
 
 
+
+  @override
+  dynamic getDynamic(String key) {
+    if(!rawJson.containsKey(key))
+      return null;
+    final value = rawJson[key];
+    return value;
+  }
+
   @override
   bool? getBoolean(String key) {
     if(!rawJson.containsKey(key))
@@ -56,8 +65,6 @@ class _WrappedJsonObject extends JsonObjectEx {
     } return autoParse ? _Util.convert2bool(rawJson[key]) : null;
   }
   
-
-
   @override
   int? getInteger(String key) {
     if(!rawJson.containsKey(key))
