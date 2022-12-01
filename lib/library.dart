@@ -8,6 +8,7 @@ part 'errors.dart';
 part 'external/IJsonEx.dart';
 part 'external/JsonArrayEx.dart';
 part 'external/JsonObjectEx.dart';
+part 'external/JsonSerializable.dart';
 
 
 part 'internal/ParsedJsonArray.dart';
