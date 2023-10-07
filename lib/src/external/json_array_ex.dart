@@ -1,10 +1,18 @@
-part of truecollaboration.json_ex;
+import 'dart:collection';
+import 'dart:convert';
+
+import 'package:json_ex/src/external/interfaces/json_ex.dart';
+import 'package:json_ex/src/internal/Util.dart';
+import 'package:json_ex/src/internal/json_array_impl.dart';
+
+import 'errors.dart';
+import 'json_object_ex.dart';
 
 abstract class JsonArrayEx<T> extends ListBase<T> implements IJsonEx {
   // CONSTRUCTORS
   //----------------------------------------------------------------------------
   static JsonArrayEx<T> empty<T>() {
-    return new _WrappedJsonArray<T>(
+    return new JsonArrayImpl<T>(
       rawJson: [],
     );
   }
@@ -16,7 +24,7 @@ abstract class JsonArrayEx<T> extends ListBase<T> implements IJsonEx {
     final data = jsonDecode(json);
     if(!(data is List<T>))
       throw(const InputIsNotArrayException());
-    return new _WrappedJsonArray<T>(
+    return new JsonArrayImpl<T>(
       rawJson: data,
       autoParse: autoParse,
     );
@@ -35,7 +43,7 @@ abstract class JsonArrayEx<T> extends ListBase<T> implements IJsonEx {
     List<T> list, {
       bool autoParse = true,
   }) {
-    return new _WrappedJsonArray<T>(
+    return new JsonArrayImpl<T>(
       rawJson: list,
       autoParse: autoParse,
     );

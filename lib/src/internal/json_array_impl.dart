@@ -1,11 +1,16 @@
-part of truecollaboration.json_ex;
+import 'dart:convert';
 
-class _WrappedJsonArray<T> extends JsonArrayEx<T> {
+import 'package:json_ex/src/external/json_array_ex.dart';
+import 'package:json_ex/src/external/json_object_ex.dart';
+
+import 'Util.dart';
+
+class JsonArrayImpl<T> extends JsonArrayEx<T> {
   final List<T> rawJson;
 
   @override
   final bool autoParse;
-  _WrappedJsonArray({
+  JsonArrayImpl({
     required this.rawJson,
     this.autoParse = true,
   });
@@ -41,7 +46,7 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
     final value = rawJson[index];
     if(value is bool) {
       return value;
-    } return autoParse ? _Util.convert2bool(rawJson[index]) : null;
+    } return autoParse ? Util.convert2bool(rawJson[index]) : null;
   }
   
 
@@ -52,7 +57,7 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
     final value = rawJson[index];
     if(value is int) {
       return value;
-    } return autoParse ? _Util.convert2int(rawJson[index]) : null;
+    } return autoParse ? Util.convert2int(rawJson[index]) : null;
   }
 
   @override
@@ -62,7 +67,7 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
     final value = rawJson[index];
     if(value is double) {
       return value;
-    } return autoParse ? _Util.convert2double(rawJson[index]) : null;
+    } return autoParse ? Util.convert2double(rawJson[index]) : null;
   }
   
 
@@ -74,7 +79,7 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
     final value = rawJson[index];
     if(value is String) {
       return value;
-    } return autoParse ? _Util.convert2string(rawJson[index]) : null;
+    } return autoParse ? Util.convert2string(rawJson[index]) : null;
   }
 
   @override
@@ -84,7 +89,7 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
     final value = rawJson[index];
     if(value is List) {
       return value.cast();
-    } return autoParse ? _Util.convert2jsonArray(rawJson[index])?.tryCast<T>() : null;
+    } return autoParse ? Util.convert2jsonArray(rawJson[index])?.tryCast<T>() : null;
   }
 
 
@@ -97,7 +102,7 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
       return JsonObjectEx.fromMap(value);
     } else if(value is JsonObjectEx) {
       return value;
-    } return autoParse ? _Util.convert2jsonObject(rawJson[index]) : null;
+    } return autoParse ? Util.convert2jsonObject(rawJson[index]) : null;
   }
 
 
@@ -111,7 +116,7 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
       return JsonArrayEx.fromList<T>(value);
     } else if(value is JsonArrayEx<T>) {
       return value;
-    } return autoParse ? _Util.convert2jsonArray(rawJson[index]) : null;
+    } return autoParse ? Util.convert2jsonArray(rawJson[index]) : null;
   }
 
   
@@ -122,9 +127,9 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
 
     Function? fnc;
     if(T == JsonObjectEx)
-      fnc = _Util.convert2jsonObject;
+      fnc = Util.convert2jsonObject;
     else if(T == JsonArrayEx)
-      fnc = _Util.convert2jsonArray;
+      fnc = Util.convert2jsonArray;
 
     for(final value in rawJson) {
       var newValue = fnc == null ? value as T : fnc(value) as T?;
@@ -145,19 +150,19 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
     final List<T> list = [];
     Function fnc;
     if(T == int)
-      fnc = _Util.convert2int;
+      fnc = Util.convert2int;
     else if(T == bool)
-      fnc = _Util.convert2bool;
+      fnc = Util.convert2bool;
     else if(T == String)
-      fnc = _Util.convert2string;
+      fnc = Util.convert2string;
     else if(T == JsonObjectEx)
-      fnc = _Util.convert2jsonObject;
+      fnc = Util.convert2jsonObject;
     else if(T == JsonArrayEx)
-      fnc = _Util.convert2jsonArray;
+      fnc = Util.convert2jsonArray;
     else return list;
 
     
-    for(final value in _Util.convert2list(rawJson) ?? []) {
+    for(final value in Util.convert2list(rawJson) ?? []) {
       final newValue = fnc(value) as T?;
       if(newValue != null)
         list.add(newValue);
@@ -187,41 +192,41 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
   bool tryGetBoolean(int index, bool def) {
     if(!_isInRange(index))
       return def;
-    return _Util.convert2bool(rawJson[index]) ?? def;
+    return Util.convert2bool(rawJson[index]) ?? def;
   }
 
   @override
   int tryGetInteger(int index, int def) {
     if(!_isInRange(index))
       return def;
-    return _Util.convert2int(rawJson[index]) ?? def;
+    return Util.convert2int(rawJson[index]) ?? def;
   }
 
   @override
   double tryGetDouble(int index, double def) {
     if(!_isInRange(index))
       return def;
-    return _Util.convert2double(rawJson[index]) ?? def;
+    return Util.convert2double(rawJson[index]) ?? def;
   }
 
   @override
   String tryGetString(int index, String def) {
     if(!_isInRange(index))
       return def;
-    return _Util.convert2string(rawJson[index]) ?? def;
+    return Util.convert2string(rawJson[index]) ?? def;
   }
 
   @override
   JsonObjectEx tryGetJsonObject(int index, JsonObjectEx def) {
     if(!_isInRange(index))
       return def;
-    return _Util.convert2jsonObject(rawJson[index]) ?? def;
+    return Util.convert2jsonObject(rawJson[index]) ?? def;
   }
   @override
   JsonArrayEx<T> tryGetJsonArray<T>(int index, JsonArrayEx<T> def) {
     if(!_isInRange(index))
       return def;
-    return _Util.convert2jsonArray<T>(rawJson[index]) ?? def;
+    return Util.convert2jsonArray<T>(rawJson[index]) ?? def;
   }
 
 
@@ -247,7 +252,7 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
   // bool setValue(int index, dynamic value) {
   //   if(!_isInRange(index))
   //     return false;
-  //   if(_Util.isPrimitiveType(value)) {
+  //   if(Util.isPrimitiveType(value)) {
   //     rawJson[index] = value;
   //     return true;
   //   } else if(value is _NeonJsonArray) {
@@ -261,7 +266,7 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
   
   // @override
   // bool pushValue(dynamic value) {
-  //   if(_Util.isPrimitiveType(value)) {
+  //   if(Util.isPrimitiveType(value)) {
   //     rawJson.add(value);
   //     return true;
   //   } else if(value is _NeonJsonArray) {
@@ -277,12 +282,12 @@ class _WrappedJsonArray<T> extends JsonArrayEx<T> {
 
 
   // void forEach<T>(void Function(T e) func) {
-  //   if(!_Util.isPrimitiveType<T>())
+  //   if(!Util.isPrimitiveType<T>())
   //     return;
-  //   var converter = _Util.functionByPrimitive<T>(
-  //     integer:  _Util.convert2int,
-  //     boolean:  _Util.convert2bool,
-  //     string:   _Util.convert2string,
+  //   var converter = Util.functionByPrimitive<T>(
+  //     integer:  Util.convert2int,
+  //     boolean:  Util.convert2bool,
+  //     string:   Util.convert2string,
   //   );
   //   rawJson.forEach((e) {
   //     // try {

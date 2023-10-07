@@ -1,10 +1,18 @@
-part of truecollaboration.json_ex;
+import 'dart:collection';
+import 'dart:convert';
+
+import 'package:json_ex/src/internal/Util.dart';
+import 'package:json_ex/src/internal/json_object_impl.dart';
+
+import 'errors.dart';
+import 'interfaces/json_ex.dart';
+import 'json_array_ex.dart';
 
 abstract class JsonObjectEx extends MapBase<String, dynamic> implements IJsonEx {
   // CONSTRUCTORS
   //----------------------------------------------------------------------------
   static JsonObjectEx empty() {
-    return new _WrappedJsonObject(
+    return new JsonObjectImpl(
       rawJson: {},
     );
   }
@@ -17,7 +25,7 @@ abstract class JsonObjectEx extends MapBase<String, dynamic> implements IJsonEx 
     if(!(data is Map<String, dynamic>) &&
         !(data is Map<String, String>))
       throw(const InputIsNotObjectException());
-    return new _WrappedJsonObject(
+    return new JsonObjectImpl(
       rawJson: data,
       autoParse: autoParse,
     );
@@ -35,7 +43,7 @@ abstract class JsonObjectEx extends MapBase<String, dynamic> implements IJsonEx 
   static JsonObjectEx fromMap(Map<String, dynamic> json, {
       bool autoParse = true,
   }) {
-    return new _WrappedJsonObject(
+    return new JsonObjectImpl(
       rawJson: json,
       autoParse: autoParse,
     );

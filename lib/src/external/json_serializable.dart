@@ -1,4 +1,4 @@
-part of truecollaboration.json_ex;
+import 'json_object_ex.dart';
 
 abstract class JsonSerializable {
   const JsonSerializable.create();

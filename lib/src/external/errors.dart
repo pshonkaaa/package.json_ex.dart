@@ -1,5 +1,3 @@
-part of truecollaboration.json_ex;
-
 class JsonFormatException implements Exception {
   final String message;
   const JsonFormatException(this.message);

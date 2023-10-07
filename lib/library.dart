@@ -1,17 +1,9 @@
-library truecollaboration.json_ex;
+library library;
 
-import 'dart:collection';
-import 'dart:convert';
+export 'src/external/interfaces/json_ex.dart';
 
-part 'errors.dart';
-
-part 'external/IJsonEx.dart';
-part 'external/JsonArrayEx.dart';
-part 'external/JsonObjectEx.dart';
-part 'external/JsonSerializable.dart';
-
-
-part 'internal/ParsedJsonArray.dart';
-part 'internal/WrappedJsonArray.dart';
-part 'internal/WrappedJsonObject.dart';
-part 'internal/Util.dart';
+export 'src/external/errors.dart';
+export 'src/external/json_array_ex.dart';
+export 'src/external/json_object_ex.dart';
+export 'src/external/json_serializable.dart';
+export 'src/external/value_parser.dart';

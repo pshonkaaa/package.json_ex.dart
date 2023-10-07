@@ -1,11 +1,18 @@
-part of truecollaboration.json_ex;
+import 'dart:convert';
 
-class _WrappedJsonObject extends JsonObjectEx {
+import 'package:json_ex/src/external/json_array_ex.dart';
+import 'package:json_ex/src/external/json_object_ex.dart';
+
+import 'Util.dart';
+import 'json_array_impl.dart';
+import 'parse_json_array.dart';
+
+class JsonObjectImpl extends JsonObjectEx {
   final Map<String, dynamic> rawJson;
 
   @override
   bool autoParse;
-  _WrappedJsonObject({
+  JsonObjectImpl({
     required this.rawJson,
     this.autoParse = true,
   });
@@ -21,9 +28,9 @@ class _WrappedJsonObject extends JsonObjectEx {
     if(value == null)
       return;
     
-    if(value is _WrappedJsonArray)
+    if(value is JsonArrayImpl)
       rawJson[key] = value.rawJson;
-    else if(value is _WrappedJsonObject)
+    else if(value is JsonObjectImpl)
       rawJson[key] = value.rawJson;
     else rawJson[key] = value;
   }
@@ -62,7 +69,7 @@ class _WrappedJsonObject extends JsonObjectEx {
     final value = rawJson[key];
     if(value is bool) {
       return value;
-    } return autoParse ? _Util.convert2bool(rawJson[key]) : null;
+    } return autoParse ? Util.convert2bool(rawJson[key]) : null;
   }
   
   @override
@@ -72,7 +79,7 @@ class _WrappedJsonObject extends JsonObjectEx {
     final value = rawJson[key];
     if(value is int) {
       return value;
-    } return autoParse ? _Util.convert2int(rawJson[key]) : null;
+    } return autoParse ? Util.convert2int(rawJson[key]) : null;
   }
 
   @override
@@ -82,7 +89,7 @@ class _WrappedJsonObject extends JsonObjectEx {
     final value = rawJson[key];
     if(value is double) {
       return value;
-    } return autoParse ? _Util.convert2double(rawJson[key]) : null;
+    } return autoParse ? Util.convert2double(rawJson[key]) : null;
   }
 
 
@@ -93,7 +100,7 @@ class _WrappedJsonObject extends JsonObjectEx {
     final value = rawJson[key];
     if(value is String) {
       return value;
-    } return autoParse ? _Util.convert2string(rawJson[key]) : null;
+    } return autoParse ? Util.convert2string(rawJson[key]) : null;
   }
 
   @override
@@ -103,7 +110,7 @@ class _WrappedJsonObject extends JsonObjectEx {
     final value = rawJson[key];
     if(value is List) {
       return value.cast();
-    } return autoParse ? _Util.convert2jsonArray(rawJson[key])?.tryCast<T>() : null;
+    } return autoParse ? Util.convert2jsonArray(rawJson[key])?.tryCast<T>() : null;
   }
 
 
@@ -116,7 +123,7 @@ class _WrappedJsonObject extends JsonObjectEx {
       return JsonObjectEx.fromMap(value);
     } else if(value is JsonObjectEx) {
       return value;
-    } return autoParse ? _Util.convert2jsonObject(rawJson[key]) : null;
+    } return autoParse ? Util.convert2jsonObject(rawJson[key]) : null;
   }
 
 
@@ -127,11 +134,11 @@ class _WrappedJsonObject extends JsonObjectEx {
       return null;
     final value = rawJson[key];
     if(value is List) {
-      final list = _Util.transformList<T>(value);
-      return _ParsedJsonArray(rawJson: list);
+      final list = Util.transformList<T>(value);
+      return ParsedJsonArray(rawJson: list);
     } else if(value is JsonArrayEx<T>) {
       return value;
-    } return autoParse ? _Util.convert2jsonArray(rawJson[key]) : null;
+    } return autoParse ? Util.convert2jsonArray(rawJson[key]) : null;
   }
 
 
@@ -158,41 +165,41 @@ class _WrappedJsonObject extends JsonObjectEx {
   bool tryGetBoolean(String key, bool def) {
     if(!rawJson.containsKey(key))
       return def;
-    return _Util.convert2bool(rawJson[key]) ?? def;
+    return Util.convert2bool(rawJson[key]) ?? def;
   }
 
   @override
   int tryGetInteger(String key, int def) {
     if(!rawJson.containsKey(key))
       return def;
-    return _Util.convert2int(rawJson[key]) ?? def;
+    return Util.convert2int(rawJson[key]) ?? def;
   }
 
   @override
   double tryGetDouble(String key, double def) {
     if(!rawJson.containsKey(key))
       return def;
-    return _Util.convert2double(rawJson[key]) ?? def;
+    return Util.convert2double(rawJson[key]) ?? def;
   }
 
   @override
   String tryGetString(String key, String def) {
     if(!rawJson.containsKey(key))
       return def;
-    return _Util.convert2string(rawJson[key]) ?? def;
+    return Util.convert2string(rawJson[key]) ?? def;
   }
 
   @override
   JsonObjectEx tryGetJsonObject(String key, JsonObjectEx def) {
     if(!rawJson.containsKey(key))
       return def;
-    return _Util.convert2jsonObject(rawJson[key]) ?? def;
+    return Util.convert2jsonObject(rawJson[key]) ?? def;
   }
 
   @override
   JsonArrayEx<T> tryGetJsonArray<T>(String key, JsonArrayEx<T> def) {
     if(!rawJson.containsKey(key))
       return def;
-    return _Util.convert2jsonArray(rawJson[key]) ?? def;
+    return Util.convert2jsonArray(rawJson[key]) ?? def;
   }
 }

@@ -1,76 +1,27 @@
-part of truecollaboration.json_ex;
+
+import 'dart:convert';
+
+import 'package:json_ex/src/external/json_array_ex.dart';
+import 'package:json_ex/src/external/json_object_ex.dart';
+import 'package:json_ex/src/external/value_parser.dart';
 
 typedef JsonObject = Map<String, dynamic>;
 typedef JsonArray = List<dynamic>;
 
-abstract class _Util {
-  static bool? convert2bool(dynamic value) {
-    if(value is bool)
-    return value;
-
-    if(value is String) {
-      final str = value.toLowerCase();
-      if(str == "true")
-        return true;
-      else if(str == "false")
-        return false;
-      final number = string2int(value);
-      if(number == null)
-        return null;
-      return number > 0 ? true : false;
-    } else if(value is int || value is double) {
-      if(value > 0)
-        return true;
-      else if(value == 0)
-        return false;
-      return null;
-    } return null;
-  }
-
-  static int? string2int(String? value) {
-    return value != null ? int.tryParse(value) : null;
-  }
+abstract class Util {
+  static bool? convert2bool(dynamic value)
+    => ValueParser.tryParseBoolean(value);
 
 
-  static int? convert2int(dynamic value) {
-    if(value is int)
-    return value;
-
-    if(value is String) {
-      return int.tryParse(value);
-    } else if(value is double) {
-      return value.toInt();
-    } else if(value is bool) {
-      return value == true ? 1 : 0;
-    } return null;
-  }
+  static int? convert2int(dynamic value)
+    => ValueParser.tryParseInteger(value);
 
 
-  static double? convert2double(dynamic value) {
-    if(value is double)
-    return value;
+  static double? convert2double(dynamic value)
+    => ValueParser.tryParseDouble(value);
 
-    if(value is String) {
-      return double.tryParse(value);
-    } else if(value is int) {
-      return value.toDouble();
-    } else if(value is bool) {
-      return value == true ? 1 : 0;
-    } return null;
-  }
-
-  static String? convert2string(dynamic value) {
-    if(value is String)
-      return value;
-
-    if(value is int) {
-      return value.toString();
-    } else if(value is double) {
-      return value.toString();
-    } else if(value is bool) {
-      return value? "true" : "false";
-    } return null;
-  }
+  static String? convert2string(dynamic value)
+    => ValueParser.tryParseString(value);
 
   static JsonObjectEx? convert2jsonObject(dynamic value) {
     if(value is JsonObjectEx)
