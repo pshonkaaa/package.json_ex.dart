@@ -1,3 +1,5 @@
+import 'package:json_ex/library.dart';
+
 abstract class ValueParser {
 
 
@@ -12,6 +14,12 @@ abstract class ValueParser {
 
   static String parseString(dynamic value)
     => tryParseString(value)!;
+
+  static JsonObjectEx parseJsonObject(dynamic value)
+    => tryParseJsonObject(value)!;
+
+  static JsonArrayEx parseJsonArray(dynamic value)
+    => tryParseJsonArray(value)!;
 
   static int sringToInt(String value)
     => tryStringToInt(value)!;
@@ -71,8 +79,6 @@ abstract class ValueParser {
     } return null;
   }
 
-
-
   static String? tryParseString(dynamic value) {
     if(value == null)
       return null;
@@ -86,6 +92,28 @@ abstract class ValueParser {
       return value.toString();
     } else if(value is bool) {
       return value? "true" : "false";
+    } return null;
+  }
+
+  static JsonObjectEx? tryParseJsonObject(dynamic value) {
+    if(value is JsonObjectEx)
+      return value;
+
+    if(value is String) {
+      return JsonObjectEx.tryFromJson(value);
+    } else if(value is Map<String, dynamic>) {
+      return JsonObjectEx.fromMap(value);
+    } return null;
+  }
+
+  static JsonArrayEx<T>? tryParseJsonArray<T>(dynamic value) {
+    if(value is JsonArrayEx<T>)
+      return value;
+
+    if(value is String) {
+      return JsonArrayEx.fromJson<T>(value);
+    } else if(value is List<T>) {
+      return JsonArrayEx.fromList<T>(value);
     } return null;
   }
 

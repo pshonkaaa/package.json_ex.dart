@@ -23,27 +23,11 @@ abstract class Util {
   static String? convert2string(dynamic value)
     => ValueParser.tryParseString(value);
 
-  static JsonObjectEx? convert2jsonObject(dynamic value) {
-    if(value is JsonObjectEx)
-      return value;
+  static JsonObjectEx? convert2jsonObject(dynamic value)
+    => ValueParser.tryParseJsonObject(value);
 
-    if(value is String) {
-      return JsonObjectEx.tryFromJson(value);
-    } else if(value is Map<String, dynamic>) {
-      return JsonObjectEx.fromMap(value);
-    } return null;
-  }
-
-  static JsonArrayEx<T>? convert2jsonArray<T>(dynamic value) {
-    if(value is JsonArrayEx<T>)
-      return value;
-
-    if(value is String) {
-      return JsonArrayEx.fromJson<T>(value);
-    } else if(value is List<T>) {
-      return JsonArrayEx.fromList<T>(value);
-    } return null;
-  }
+  static JsonArrayEx<T>? convert2jsonArray<T>(dynamic value)
+    => ValueParser.tryParseJsonArray<T>(value);
 
   static List? convert2list(dynamic value) {
     if(value is String) {
