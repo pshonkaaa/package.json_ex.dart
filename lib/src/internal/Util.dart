@@ -78,21 +78,21 @@ abstract class Util {
     } return list.cast();
   }
 
-  static bool isPrimitiveType<T>() {
-    if(T == int)
-      return true;
-    if(T == double)
-      return true;
-    if(T == num)
-      return true;
-    if(T == bool)
-      return true;
-    if(T == String)
-      return true;
-    if(T == List)
-      return true;
-    if(T == Map)
-      return true;
-    return false;
-  }
+  // static bool isPrimitiveType<T>() {
+  //   if(T == int)
+  //     return true;
+  //   if(T == double)
+  //     return true;
+  //   if(T == num)
+  //     return true;
+  //   if(T == bool)
+  //     return true;
+  //   if(T == String)
+  //     return true;
+  //   if(T == List)
+  //     return true;
+  //   if(T == Map)
+  //     return true;
+  //   return false;
+  // }
 }

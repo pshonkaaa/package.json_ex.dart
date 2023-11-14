@@ -151,6 +151,8 @@ class JsonArrayImpl<T> extends JsonArrayEx<T> {
     Function fnc;
     if(T == int)
       fnc = Util.convert2int;
+    else if(T == double)
+      fnc = Util.convert2double;
     else if(T == bool)
       fnc = Util.convert2bool;
     else if(T == String)
@@ -159,7 +161,7 @@ class JsonArrayImpl<T> extends JsonArrayEx<T> {
       fnc = Util.convert2jsonObject;
     else if(T == JsonArrayEx)
       fnc = Util.convert2jsonArray;
-    else return list;
+    else throw 'unknown cast type $T';
 
     
     for(final value in Util.convert2list(rawJson) ?? []) {

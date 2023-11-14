@@ -1,6 +1,21 @@
 abstract class ValueParser {
 
 
+  static bool parseBoolean(dynamic value)
+    => tryParseBoolean(value)!;
+
+  static int parseInteger(dynamic value)
+    => tryParseInteger(value)!;
+
+  static double parseDouble(dynamic value)
+    => tryParseDouble(value)!;
+
+  static String parseString(dynamic value)
+    => tryParseString(value)!;
+
+  static int sringToInt(String value)
+    => tryStringToInt(value)!;
+
   static bool? tryParseBoolean(dynamic value) {
     if(value == null)
       return null;
@@ -14,7 +29,7 @@ abstract class ValueParser {
         return true;
       else if(str == "false")
         return false;
-      final number = tryParseStringToInt(value);
+      final number = tryStringToInt(value);
       if(number == null)
         return null;
       return number > 0 ? true : false;
@@ -74,7 +89,7 @@ abstract class ValueParser {
     } return null;
   }
 
-  static int? tryParseStringToInt(String? value) {
+  static int? tryStringToInt(String? value) {
     return value != null ? int.tryParse(value) : null;
   }
 }
