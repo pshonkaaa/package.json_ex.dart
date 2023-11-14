@@ -95,9 +95,18 @@ abstract class ValueParser {
     } return null;
   }
 
+  static List<T>? tryParseArray<T>(dynamic value) {
+    if(value is List) {
+      return value.cast();
+    } return tryParseJsonArray(value)?.tryCast<T>();
+  }
+
   static JsonObjectEx? tryParseJsonObject(dynamic value) {
-    if(value is JsonObjectEx)
+    if(value is Map<String, dynamic>) {
+      return JsonObjectEx.fromMap(value);
+    } else if(value is JsonObjectEx) {
       return value;
+    }
 
     if(value is String) {
       return JsonObjectEx.tryFromJson(value);
