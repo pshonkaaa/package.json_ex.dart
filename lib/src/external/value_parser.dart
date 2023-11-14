@@ -15,6 +15,9 @@ abstract class ValueParser {
   static String parseString(dynamic value)
     => tryParseString(value)!;
 
+  static List<T> parseArray<T>(dynamic value)
+    => tryParseArray<T>(value)!;
+
   static JsonObjectEx parseJsonObject(dynamic value)
     => tryParseJsonObject(value)!;
 
